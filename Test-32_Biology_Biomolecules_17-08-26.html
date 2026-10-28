@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test-32_Biology_Biomolecules_17-08-26</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2196F3;
+            --primary-dark: #1976D2;
+            --secondary: #42A5F5;
+            --accent: #64B5F6;
+            --light-blue: #E3F2FD;
+            --dark: #1565C0;
+            --light: #FFFFFF;
+            --gray: #9E9E9E;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F44336;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        body {
+            background: var(--light);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            padding-bottom: 70px;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .navbar {
+            background: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 0.8rem;
+        }
+
+        .navbar-brand {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white !important;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .navbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .timer {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .nav-action-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .nav-action-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .nav-action-btn.submit-btn {
+            background: #4CAF50;
+        }
+
+        .nav-action-btn.submit-btn:hover {
+            background: #43A047;
+        }
+
+        .welcome-screen {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-screen::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--primary) 0%, var(--accent) 100%);
+        }
+
+        .test-info-card {
+            background: linear-gradient(145deg, #ffffff, #f8faff);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            box-shadow: 0 10px 30px rgba(33, 150, 243, 0.05);
+        }
+
+        .test-info-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .test-info-header i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            background: rgba(33, 150, 243, 0.1);
+            padding: 1rem;
+            border-radius: 16px;
+        }
+
+        .test-info-header h3 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .test-info-body {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .info-item i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .info-item div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .info-item span {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .info-item label {
+            font-size: 0.85rem;
+            color: #64748b;
+            margin: 0;
+        }
+
+        .instructions-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+        }
+
+        .instructions-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .instructions-header i {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .instructions-header h4 {
+            margin: 0;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .instructions-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1rem;
+            padding: 0;
+        }
+
+        .instruction-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: #f8faff;
+            border-radius: 12px;
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .instruction-item:hover {
+            transform: translateX(5px);
+            background: white;
+            border-color: var(--primary);
+        }
+
+        .instruction-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            color: white;
+            background: var(--primary);
+        }
+
+        .instruction-icon.success { background: #4CAF50; }
+        .instruction-icon.danger { background: #F44336; }
+        .instruction-icon.warning { background: #FFC107; }
+        .instruction-icon.info { background: #2196F3; }
+
+        .instruction-text {
+            font-size: 1rem;
+            color: #2c3e50;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .start-test-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(33, 150, 243, 0.3);
+            cursor: pointer;
+        }
+
+        .start-test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 1rem auto;
+            max-width: 900px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.8rem;
+            border-bottom: 1px solid #eef0f7;
+        }
+
+        .question-number {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .question-status {
+            font-size: 0.8rem;
+            font-weight: 500;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .question-box {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.6;
+            border: 1px solid #eef0f7;
+        }
+
+        .question-box img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0.5rem 0;
+        }
+
+        .options-container {
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .option-card {
+            background: white;
+            border: 1px solid #eef0f7;
+            border-radius: 8px;
+            padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+            font-size: 0.9rem;
+            font-weight: 400;
+            color: #475569;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 0.3rem 0;
+        }
+
+        .option-card:hover {
+            background: #f8f9ff;
+            border-color: var(--primary);
+            transform: translateX(3px);
+        }
+
+        .option-card::before {
+            content: attr(data-option);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.2rem;
+            height: 100%;
+            background: #f8f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            border-right: 1px solid #eef0f7;
+        }
+
+        .option-card.selected {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .option-card.selected::before {
+            background: rgba(255,255,255,0.1);
+            color: white;
+            border-right: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .stats-mini {
+            background: white;
+            border-radius: 12px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .stats-mini-item {
+            text-align: center;
+            padding: 0 1rem;
+        }
+
+        .stats-mini-value {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 0.2rem;
+        }
+
+        .stats-mini-label {
+            font-size: 0.8rem;
+            color: var(--gray);
+            font-weight: 500;
+        }
+
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-top: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .nav-btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            border: none;
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.15);
+            background: var(--primary);
+            color: white;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.7;
+            transform: none;
+            cursor: not-allowed;
+            background: #f5f5f5;
+            color: #999;
+        }
+
+        .modal-content {
+            background: white;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .modal-header {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eef0f7;
+        }
+
+        .modal-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .questions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(40px, 1fr));
+            gap: 0.5rem;
+            padding: 1rem;
+        }
+
+        .grid-btn {
+            aspect-ratio: 1;
+            border: 1px solid #eef0f7;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+            background: white;
+            color: #64748b;
+            cursor: pointer;
+        }
+
+        .grid-btn:hover {
+            background: #f8f9ff;
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        .grid-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .grid-btn.answered {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border-color: #a5d6a7;
+        }
+
+        .grid-btn.marked {
+            background: #fff3e0;
+            color: #f57c00;
+            border-color: #ffcc80;
+        }
+
+        .solution-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            border: 1px solid rgba(33, 150, 243, 0.1);
+        }
+
+        .solution-question {
+            background: #f8f9ff;
+            border-radius: 10px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #2c3e50;
+            line-height: 1.6;
+            border: 1px solid #eef0f7;
+        }
+
+        .solution-option {
+            background: white;
+            border: 1px solid #eef0f7;
+            border-radius: 8px;
+            padding: 0.8rem 0.8rem 0.8rem 2.8rem;
+            margin-bottom: 0.6rem;
+            position: relative;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .solution-option::before {
+            content: attr(data-option);
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 2.2rem;
+            height: 100%;
+            background: #f8f9ff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            border-right: 1px solid #eef0f7;
+        }
+
+        .solution-option.correct {
+            background: #e8f5e9;
+            border-color: #4caf50;
+            border-width: 2px;
+        }
+
+        .solution-option.correct::before {
+            background: #4caf50;
+            color: white;
+        }
+
+        .solution-option.user-incorrect {
+            background: #ffebee;
+            border-color: #f44336;
+            border-width: 2px;
+        }
+
+        .solution-option.user-incorrect::before {
+            background: #f44336;
+            color: white;
+        }
+
+        .solution-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .solution-status.correct-answer {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .solution-status.wrong-answer {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .solution-status.not-attempted {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+
+        .solution-explanation {
+            margin-top: 1.5rem;
+            padding: 1.5rem;
+            background: #f8f9ff;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .solution-explanation h6 {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solution-explanation-content {
+            color: #2c3e50;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        .solution-explanation-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 13px;
+                padding-bottom: 60px;
+            }
+            
+            .nav-btn {
+                padding: 0.5rem 1rem;
+                min-width: auto;
+                font-size: 0.8rem;
+            }
+            
+            .nav-btn span {
+                display: none;
+            }
+            
+            .welcome-screen, .question-card {
+                margin: 0.8rem;
+                padding: 1.2rem;
+            }
+
+            .test-info-body {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .option-card {
+                padding: 0.7rem 0.7rem 0.7rem 2.5rem;
+                font-size: 0.85rem;
+            }
+
+            .solution-explanation {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <div class="navbar-actions" id="pre-test-actions">
+            </div>
+            <div class="navbar-actions" id="test-actions" style="display: none;">
+                <div class="timer" id="timer">
+                    <i class="far fa-clock me-2"></i>00:00:00
+                </div>
+                <button class="nav-action-btn overview-btn" onclick="showQuestionsGrid()">
+                    <i class="fas fa-th"></i>
+                    Overview
+                </button>
+                <button class="nav-action-btn submit-btn" onclick="confirmSubmit()">
+                    <i class="fas fa-paper-plane"></i>
+                    Submit
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <div id="welcome-screen">
+        <div class="welcome-screen">
+            <div class="test-info-card">
+                <div class="test-info-header">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Test-32_Biology_Biomolecules_17-08-26</h3>
+                </div>
+                <div class="test-info-body">
+                    <div class="info-item">
+                        <i class="fas fa-question-circle"></i>
+                        <div>
+                            <span id="total-questions-display">0</span>
+                            <label>Questions</label>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <span id="time-display">50</span>
+                            <label>Minutes</label>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <span id="total-marks">0</span>
+                            <label>Total Marks</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="instructions-card">
+                <div class="instructions-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h4>Instructions</h4>
+                </div>
+                <div class="instructions-grid">
+                    <div class="instruction-item">
+                        <div class="instruction-icon success"><i class="fas fa-check"></i></div>
+                        <div class="instruction-text">Read each question carefully before answering.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon warning"><i class="fas fa-clock"></i></div>
+                        <div class="instruction-text">Keep track of time. You have a limited time to complete the test.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon danger"><i class="fas fa-ban"></i></div>
+                        <div class="instruction-text">Do not refresh or close the page during the test.</div>
+                    </div>
+                    <div class="instruction-item">
+                        <div class="instruction-icon info"><i class="fas fa-mouse-pointer"></i></div>
+                        <div class="instruction-text">Click on options to select your answer.</div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="start-test-btn" onclick="startTest()">
+                <i class="fas fa-play-circle me-2"></i>
+                Start Test Now
+            </button>
+        </div>
+    </div>
+
+    <div id="test-content" style="display: none;">
+        <div class="stats-mini">
+            <div class="stats-mini-item">
+                <div class="stats-mini-value" id="mini-total">1/0</div>
+                <div class="stats-mini-label">Current</div>
+            </div>
+            <div class="stats-mini-item">
+                <div class="stats-mini-value" id="mini-attempted">0</div>
+                <div class="stats-mini-label">Attempted</div>
+            </div>
+            <div class="stats-mini-item">
+                <div class="stats-mini-value" id="mini-skipped">0</div>
+                <div class="stats-mini-label">Skipped</div>
+            </div>
+        </div>
+        <div class="question-card" id="question-container">
+            <!-- Questions will be loaded here -->
+        </div>
+    </div>
+
+    <div id="bottom-nav" class="bottom-nav" style="display: none;">
+        <button id="prev-btn" class="nav-btn" onclick="prevQuestion()">
+            <i class="fas fa-arrow-left"></i>
+            <span>Previous</span>
+        </button>
+        <button class="nav-btn" onclick="markForReview()">
+            <i class="fas fa-bookmark"></i>
+            <span>Mark Review</span>
+        </button>
+        <button id="next-btn" class="nav-btn" onclick="nextQuestion()">
+            <span>Next</span>
+            <i class="fas fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <div class="modal fade" id="questionsModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-th"></i>
+                        Questions Overview
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="questions-grid" id="questions-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="submitConfirmModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title">
+                        <i class="fas fa-paper-plane text-primary me-2"></i>
+                        Submit Test
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <div class="alert alert-warning mb-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        Are you sure you want to submit? You cannot change your answers after submission.
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">
+                            <i class="fas fa-times me-2"></i>
+                            Cancel
+                        </button>
+                        <button type="button" class="btn btn-primary px-4" onclick="finalSubmit()">
+                            <i class="fas fa-check me-2"></i>
+                            Submit Test
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        let currentQuestion = 0;
+        let answers = {};
+        let markedForReview = {};
+        let submitted = false;
+        let testStarted = false;
+        let startTime = null;
+        let endTime = null;
+        
+        const questions = [{"id":"372608","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_bbb5fe1627f340f7.png\" width=\"327\" height=\"45\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b57f6d9128d1c762.png\" width=\"143\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f18961f6e58cb7a4.png\" width=\"146\" height=\"29\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5473ba6ec08efbc3.png\" width=\"166\" height=\"27\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_157d4e4834e296c4.png\" width=\"155\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9e546521b2b74a6.png\" width=\"328\" height=\"100\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372609","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a31788a29640a96d.png\" width=\"270\" height=\"27\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_932a8bdbf0b49c8f.png\" width=\"277\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2be3685b2e592732.png\" width=\"296\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f4ec2fb563a7ad66.png\" width=\"296\" height=\"46\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2ba273825199f626.png\" width=\"293\" height=\"27\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_27000b644714a9c1.png\" width=\"327\" height=\"87\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372610","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_46ba6274b9480dea.png\" width=\"256\" height=\"28\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c8e72e0e63aae581.png\" width=\"84\" height=\"20\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_52efbbfb8f6321ad.png\" width=\"79\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3d03a77c59845974.png\" width=\"54\" height=\"27\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d90f915f07bac19a.png\" width=\"80\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b71ebc9915134bb7.png\" width=\"325\" height=\"107\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372611","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e506077b98cebc3f.png\" width=\"328\" height=\"253\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5980cce7cea1f1c4.png\" width=\"14\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5d6c11c774d54964.png\" width=\"22\" height=\"19\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_bcf350dae2ce06f9.png\" width=\"18\" height=\"21\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_25c9b1f66f99b4a3.png\" width=\"24\" height=\"20\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9a8d6fe8c61711e2.png\" width=\"326\" height=\"68\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372612","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cbd8d535d812e1fc.png\" width=\"328\" height=\"68\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7f762d08622f8d48.png\" width=\"109\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d4e95dd4efa3c955.png\" width=\"124\" height=\"28\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c335ebe9d78e5d43.png\" width=\"103\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d66bcb63fadd7f06.png\" width=\"158\" height=\"33\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_69524bca624c8e7e.png\" width=\"327\" height=\"88\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372613","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e2a79df82dbf5f03.png\" width=\"331\" height=\"49\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_87aee061f16ba0db.png\" width=\"90\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3f423c2838d78e95.png\" width=\"70\" height=\"28\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_88351a298b73fc0d.png\" width=\"63\" height=\"27\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e89946b7406497ff.png\" width=\"44\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_aa1728cfe6a907fe.png\" width=\"301\" height=\"30\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372614","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_768a6fdbeda76ad7.png\" width=\"337\" height=\"49\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2444e583749b783f.png\" width=\"71\" height=\"28\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f35e57ae69a27de.png\" width=\"62\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8c557cc855ab0201.png\" width=\"71\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_bd88d955d9cede89.png\" width=\"73\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8ff884d4216bd9bb.png\" width=\"331\" height=\"129\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372615","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7ceceb2b4844beea.png\" width=\"335\" height=\"46\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_45a812a6b90bd861.png\" width=\"152\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8dfee5ca23af6770.png\" width=\"288\" height=\"27\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c137cd046086e677.png\" width=\"181\" height=\"21\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2939b885f9dfdf72.png\" width=\"200\" height=\"28\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_df572a8868e74e37.png\" width=\"320\" height=\"52\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372616","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8bb187b4ad6a87fe.png\" width=\"334\" height=\"47\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6bd8ba6c45e54860.png\" width=\"160\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_38887e37fb49774b.png\" width=\"87\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a8865230374732c7.png\" width=\"286\" height=\"28\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7733dca1f94ed7eb.png\" width=\"121\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3d14464cdcd4a36c.png\" width=\"328\" height=\"71\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_25ff5386f685bdf9.png\" width=\"326\" height=\"66\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372617","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c97a6dfe02eb4165.png\" width=\"340\" height=\"47\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_89763c7e54f1c07c.png\" width=\"63\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_95bc45bf5d6a54dc.png\" width=\"69\" height=\"21\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e60b5294e727dfb.png\" width=\"61\" height=\"22\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_594b79a2f89b1a2f.png\" width=\"139\" height=\"28\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1a56599570386924.png\" width=\"330\" height=\"145\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372618","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4551cace9cbb5c1.png\" width=\"333\" height=\"45\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_87c9c0999373564.png\" width=\"40\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_874ce05f411f35f0.png\" width=\"61\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7410167d6ce01b3d.png\" width=\"118\" height=\"26\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_186385d928c9571d.png\" width=\"47\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cafd57407e9eb089.png\" width=\"342\" height=\"128\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372619","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_58780b9d2a17f2e.png\" width=\"343\" height=\"65\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_832fb6677727cfad.png\" width=\"118\" height=\"29\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_552e54dceeee98f0.png\" width=\"167\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_aa5ff759abab0d20.png\" width=\"176\" height=\"28\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_84e5a0181d1bc6e.png\" width=\"88\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e75a50f2cf9a829e.png\" width=\"332\" height=\"100\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372620","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_665016d7a685b53c.png\" width=\"328\" height=\"67\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_459733fc80357125.png\" width=\"125\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c351d72dc2a8f25e.png\" width=\"118\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_211b86beb3383734.png\" width=\"121\" height=\"26\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3ad03f9ba9b43fa7.png\" width=\"94\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3f3b04b8cca18719.png\" width=\"333\" height=\"106\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372621","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_65ae6e081171b322.png\" width=\"329\" height=\"194\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6d64c8de18f6abc2.png\" width=\"181\" height=\"30\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ded8b198d8c0dd9e.png\" width=\"182\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8c128a36592f5d9e.png\" width=\"185\" height=\"29\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1830152c45fce394.png\" width=\"188\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cde03ed9dfc292e.png\" width=\"336\" height=\"313\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372622","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_81e0a775e12060b.png\" width=\"322\" height=\"27\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_43deb6ac2ccc6012.png\" width=\"269\" height=\"21\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_935958463e8715bf.png\" width=\"297\" height=\"40\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e7202856c2889d02.png\" width=\"297\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3b74a476e2a59b47.png\" width=\"298\" height=\"42\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7c474330fac6090a.png\" width=\"328\" height=\"310\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372623","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c031f750e457c995.png\" width=\"236\" height=\"24\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c1e85a9148218335.png\" width=\"75\" height=\"21\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_469ecfa89ff2988.png\" width=\"75\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9cf31c2b12270801.png\" width=\"56\" height=\"20\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_64487b5530af9f96.png\" width=\"134\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6eaa0f7a8540d422.png\" width=\"326\" height=\"86\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372624","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_294c030e38e8f524.png\" width=\"325\" height=\"43\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1b9d1a6a8f848f88.png\" width=\"295\" height=\"19\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1d8cc204cc8ca4af.png\" width=\"296\" height=\"45\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2bb152f2792c3628.png\" width=\"195\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f2efb78a2f1b4ec8.png\" width=\"297\" height=\"44\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a309c3ed1df8a0c9.png\" width=\"327\" height=\"47\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372625","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_18f568a456588e3.png\" width=\"323\" height=\"53\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6134da75404166eb.png\" width=\"104\" height=\"117\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cf711bc50572fe83.png\" width=\"231\" height=\"28\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f2a752398b6a22a7.png\" width=\"272\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1bcf69a839ce2ed7.png\" width=\"265\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c9875e85bd226a11.png\" width=\"299\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e6727bb9ea3f6799.png\" width=\"311\" height=\"131\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372626","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9879b9b57fbdfc37.png\" width=\"332\" height=\"47\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_370f1b1d6e309ac6.png\" width=\"113\" height=\"122\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_afa5abffda32b24d.png\" width=\"129\" height=\"121\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1ad21594a1aa8820.png\" width=\"94\" height=\"19\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_eab4fc203a320dfb.png\" width=\"128\" height=\"22\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f74341c4b19e95c1.png\" width=\"161\" height=\"153\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372627","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_953d850123293627.png\" width=\"328\" height=\"66\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d879bbd94d77e1fd.png\" width=\"121\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_dded22fb0bd21885.png\" width=\"90\" height=\"27\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2af69cabde5b3f1d.png\" width=\"83\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8285784123a6ba52.png\" width=\"77\" height=\"27\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2f8da82ff698813.png\" width=\"328\" height=\"92\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372628","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b8a6fbc0880a231d.png\" width=\"332\" height=\"44\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9561dcee9be333f8.png\" width=\"162\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_eae448549ef6aa55.png\" width=\"120\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f1b94a6ef3790a8b.png\" width=\"123\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_241c7a9c2fcd11a7.png\" width=\"91\" height=\"26\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_43efb8250d76d00e.png\" width=\"328\" height=\"132\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372629","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4bd3ddda1e97bc67.png\" width=\"238\" height=\"25\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_59156bad6de62fe8.png\" width=\"272\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c2c6c29d694fa739.png\" width=\"223\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b0168d83bb1ebca6.png\" width=\"208\" height=\"26\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_16e7ea9397c79cda.png\" width=\"179\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_577c3561c5e65ab2.png\" width=\"206\" height=\"30\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372630","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7cfbff773414f565.png\" width=\"279\" height=\"30\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_769732a3868c930e.png\" width=\"69\" height=\"20\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d6796632374d4bee.png\" width=\"43\" height=\"17\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_716fd77ae48805f4.png\" width=\"43\" height=\"22\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_564a93a9ff27dba3.png\" width=\"112\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9f49a2b9572365ea.png\" width=\"211\" height=\"57\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372631","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_90281b496a4a9c8a.png\" width=\"325\" height=\"45\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d3cfb138d87a3885.png\" width=\"110\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3a6cb44cea37a910.png\" width=\"104\" height=\"23\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2ebfe646b5309e8b.png\" width=\"67\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_41fa23364c66d26.png\" width=\"92\" height=\"22\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_80c57cd6c1ab73ba.png\" width=\"336\" height=\"49\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372632","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a8ddf6973973b5de.png\" width=\"308\" height=\"23\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c9df2277a70f0ff6.png\" width=\"169\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_93f0e97468d84050.png\" width=\"162\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e7a0e15f9d401994.png\" width=\"91\" height=\"22\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_febc147700bda5c2.png\" width=\"129\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_466132830ab9df92.png\" width=\"334\" height=\"87\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372633","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b9de6398f051fcc2.png\" width=\"329\" height=\"202\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2f99afe6422083a2.png\" width=\"295\" height=\"29\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ca52aec1c158ba32.png\" width=\"299\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7879473b75b94d67.png\" width=\"296\" height=\"21\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b71b45fb08d71d9a.png\" width=\"298\" height=\"28\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_695e0ccb84a4449f.png\" width=\"338\" height=\"144\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372634","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_62ca6a9971642c77.png\" width=\"307\" height=\"25\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cbaeb3c370a4f759.png\" width=\"294\" height=\"44\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2ac1286aed0d8a81.png\" width=\"283\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5683090bfe822c7d.png\" width=\"239\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ed203546cb18d5c0.png\" width=\"298\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7b30e0d735fffd3b.png\" width=\"315\" height=\"183\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372635","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a255a4f29d7d7fcd.png\" width=\"327\" height=\"55\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ba28be7becf66f88.png\" width=\"61\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b5eda64a1ddf26e4.png\" width=\"70\" height=\"20\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_44390fe45b56d545.png\" width=\"63\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_fe571bc387e6f681.png\" width=\"66\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e367925c5068f31d.png\" width=\"336\" height=\"90\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372636","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_cbaab14fcb6724e7.png\" width=\"315\" height=\"120\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_25584e430ab3c8fc.png\" width=\"332\" height=\"147\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_24e2e00a89624743.png\" width=\"129\" height=\"22\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a4e1129ee6fa7617.png\" width=\"133\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_80593d2fbc99206a.png\" width=\"134\" height=\"20\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c0af8633d212f0dc.png\" width=\"133\" height=\"21\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7998fc572bdcd4d4.png\" width=\"330\" height=\"223\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372637","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c5094b5df2ae40f3.png\" width=\"328\" height=\"26\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_206f47c22c705307.png\" width=\"305\" height=\"44\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1216147f652ceda4.png\" width=\"302\" height=\"47\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4516535698de8eca.png\" width=\"297\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_42307d8408ae7013.png\" width=\"298\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5f5cda6f417f93c7.png\" width=\"330\" height=\"109\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372638","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6047bbd893954764.png\" width=\"337\" height=\"285\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_60405fdd48458f23.png\" width=\"52\" height=\"22\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7fa4236783f24130.png\" width=\"96\" height=\"23\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_fd492a83150d561c.png\" width=\"84\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f7503387ce1cf196.png\" width=\"95\" height=\"21\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b7170c90bcc2401a.png\" width=\"330\" height=\"185\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372639","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_575424ecf91d4176.png\" width=\"342\" height=\"104\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_38179666714eae66.png\" width=\"81\" height=\"22\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5b1d517189a5be04.png\" width=\"113\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_32964398f725b668.png\" width=\"104\" height=\"26\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_81c6fdf3f1890fe4.png\" width=\"105\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_1e63c83c21638d95.png\" width=\"326\" height=\"46\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372640","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b20bf1a5238b86a2.png\" width=\"329\" height=\"40\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9bdcd0a303c9082e.png\" width=\"49\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_92345d3ef422521e.png\" width=\"50\" height=\"22\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4b7394bd69fdfea3.png\" width=\"50\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2824f5e3d3fe8132.png\" width=\"46\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_72d42b9b5ad56816.png\" width=\"324\" height=\"66\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372641","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ed7d3876c0ee4efa.png\" width=\"325\" height=\"232\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_17eb1c09144c1a73.png\" width=\"55\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9e821d0705c8c37c.png\" width=\"68\" height=\"22\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3fb88577db092c84.png\" width=\"70\" height=\"27\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e6addb507c2f3bb9.png\" width=\"106\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_dfaf18112a36c9ee.png\" width=\"328\" height=\"99\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372642","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7645bcdca775bff5.png\" width=\"331\" height=\"87\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_13cbf6dbf7eabb33.png\" width=\"54\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b85ea5920ec655d5.png\" width=\"69\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4cb59e1d69215a4a.png\" width=\"249\" height=\"20\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5edac710b05f4a8b.png\" width=\"113\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b3b5e359b49aaf60.png\" width=\"332\" height=\"89\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7239dd87391417d7.png\" width=\"327\" height=\"65\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372643","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_dfc42463a20227c.png\" width=\"327\" height=\"66\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_82e52ac27f5691be.png\" width=\"39\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8ca1a98657f7adeb.png\" width=\"51\" height=\"23\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8755b8a18c5b303b.png\" width=\"61\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f746474d8d64d24d.png\" width=\"45\" height=\"22\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f2b279a5ab563124.png\" width=\"331\" height=\"68\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372644","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4982080683168b72.png\" width=\"328\" height=\"40\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a4a69f5ada0b769e.png\" width=\"71\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a0cb3d79eaa2536c.png\" width=\"65\" height=\"21\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_dcb85f78888d09d6.png\" width=\"58\" height=\"22\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_babca9015590973.png\" width=\"80\" height=\"24\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d33cb00ac4b0f51b.png\" width=\"330\" height=\"65\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372645","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_49336b365950da3a.png\" width=\"125\" height=\"26\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_562fe095096aabe6.png\" width=\"155\" height=\"21\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_935482e6967e73da.png\" width=\"133\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e9f430ee9a626008.png\" width=\"110\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f1b5e5e31b320ca5.png\" width=\"89\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e24395b84431c44b.png\" width=\"197\" height=\"29\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372646","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_8d8f70139f876711.png\" width=\"336\" height=\"60\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3c1fc307a44048fe.png\" width=\"35\" height=\"20\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_73784d2049ee1ce.png\" width=\"48\" height=\"28\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_72fc5fa516ca2ff.png\" width=\"53\" height=\"29\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9c54dd29b4797d9.png\" width=\"55\" height=\"31\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_12f2589034585822.png\" width=\"339\" height=\"88\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372647","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_60d937ecc0ee2e27.png\" width=\"195\" height=\"29\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_62306f4fb2705e7b.png\" width=\"172\" height=\"27\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_810720e70962f3c4.png\" width=\"199\" height=\"23\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_69deb886de091958.png\" width=\"115\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_67f14ae044df0b66.png\" width=\"116\" height=\"22\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"4","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ce7a8723004ef4ba.png\" width=\"105\" height=\"25\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372648","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_280aa5aaf309fbd8.png\" width=\"315\" height=\"24\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e6821022d59f9e18.png\" width=\"259\" height=\"26\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_bcd44feab3f4301.png\" width=\"213\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_fbcdad35b92b19a1.png\" width=\"304\" height=\"43\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d36a78e66c22051a.png\" width=\"299\" height=\"45\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_49dd4beaa3411879.png\" width=\"335\" height=\"48\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372649","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2045764a707ab39c.png\" width=\"332\" height=\"52\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_609354318f83af24.png\" width=\"130\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_7aa46cdcd9116c71.png\" width=\"143\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b0b74434aadd3c42.png\" width=\"137\" height=\"26\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_24ffde8f58ab8e2a.png\" width=\"99\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e90042ebc8d253f.png\" width=\"334\" height=\"104\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372650","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_36b56e237050188e.png\" width=\"337\" height=\"341\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f41a75a6eddd7695.png\" width=\"116\" height=\"32\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c620b2ecc16a52.png\" width=\"117\" height=\"30\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_31df96c9a4e782e9.png\" width=\"111\" height=\"31\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_d6f73209f68fc773.png\" width=\"114\" height=\"28\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f4022b2ce6f3a32a.png\" width=\"337\" height=\"256\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372651","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_74ee05bcf746a25c.png\" width=\"327\" height=\"93\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_82d4cbce8cb9059b.png\" width=\"87\" height=\"22\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_20d36040a5e2a9db.png\" width=\"65\" height=\"26\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4b5c610cb4f20434.png\" width=\"113\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f7d377856669052.png\" width=\"69\" height=\"29\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_17eea53496e7d982.png\" width=\"148\" height=\"29\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372652","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_b05426addddeba26.png\" width=\"326\" height=\"49\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ec8c7657dc5c716.png\" width=\"275\" height=\"24\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5d5553471dfa9e71.png\" width=\"280\" height=\"27\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_844569a9754a9a85.png\" width=\"263\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5f0772b9ad394bc3.png\" width=\"277\" height=\"28\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_20465bc88f2f5316.png\" width=\"327\" height=\"110\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372653","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_df98624fc16b9719.png\" width=\"163\" height=\"25\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_54f4e1687f499832.png\" width=\"314\" height=\"158\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_da22455c4a4b12ef.png\" width=\"139\" height=\"22\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_9f7084fdfc0fcbab.png\" width=\"129\" height=\"29\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_64da1193d74799c8.png\" width=\"135\" height=\"25\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_71f01ad5267d70d8.png\" width=\"136\" height=\"19\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"2","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c84e8d003de89b.png\" width=\"343\" height=\"225\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372654","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;margin-bottom:0in;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ed23e58a14a8752d.png\" width=\"331\" height=\"408\" > </span></p>     <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f05e4662f9df1abb.png\" width=\"274\" height=\"118\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_c2e22c0984eb3850.png\" width=\"207\" height=\"28\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6175aec9c0c34d54.png\" width=\"208\" height=\"22\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_76e232a39473f725.png\" width=\"205\" height=\"24\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_83ade993a1f445d4.png\" width=\"204\" height=\"23\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ec92011200d988e5.png\" width=\"326\" height=\"86\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372655","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_99cb99184556857f.png\" width=\"334\" height=\"192\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_acea86330f972040.png\" width=\"274\" height=\"25\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4955324d4a3c8864.png\" width=\"296\" height=\"27\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_e65ddde0cc7283fc.png\" width=\"274\" height=\"32\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_2d20dfe6c7447d5d.png\" width=\"304\" height=\"43\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"3","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4eaf80a6fe80928d.png\" width=\"328\" height=\"76\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372656","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_964cf2139eeb963e.png\" width=\"344\" height=\"171\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_f51e53e5a8fef1ec.png\" width=\"62\" height=\"23\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6a78ba1de6a4e0fd.png\" width=\"52\" height=\"24\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_6d253401e6328184.png\" width=\"62\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_a88557a8f13918df.png\" width=\"90\" height=\"25\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_809d71e1c87bbab2.png\" width=\"332\" height=\"64\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""},{"id":"372657","test_series_id":"77","test_id":"3586","question_type":"1","question_ui_type":"1","question":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_3ef824d9a29c1196.png\" width=\"345\" height=\"46\" > </span></p>","option_1":"<style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_138d9f4cf5c6f5e6.png\" width=\"97\" height=\"19\" > </span></p>","option_2":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_ff8e2eaa0e4a8687.png\" width=\"66\" height=\"25\" > </span></p>","option_3":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_4b3d9c8fdb06ec59.png\" width=\"91\" height=\"23\" > </span></p>","option_4":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\">     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_240d1e0c75178291.png\" width=\"100\" height=\"27\" > </span></p>","option_5":"","option_6":"","option_7":"","option_8":"","option_9":"","option_10":"","option_image_1":"","option_image_2":"","option_image_3":"","option_image_4":"","option_image_5":"","option_image_6":"","option_image_7":"","option_image_8":"","option_image_9":"","option_image_10":"","image_link_1":"","image_link_2":"","image_link_3":"","answer":"1","solution_heading":"Full Solution","solution_text":"<style> *{overflow-wrap: break-word;} </style> <style> img, svg {vertical-align: middle; max-width:100%}</style> <p style=\"orphans:0;widows:0;text-decoration:none\"><a name=\"_GoBack\"></a>     <span><img src=\"https://static-appxdb-v2.akamai.net.in/website/bulk_uploader_images/1786709272580_html_5cdcd8c54ae98b50.png\" width=\"336\" height=\"48\" > </span></p>","solution_image_1":"","solution_image_2":"","solution_video":"","difficulty_level":"0","topic":"","exam":"","section_id":"207","subject":"","concept":"","report_count":"0","set_no":"0","positive_marks":"4.00","negative_marks":"1.00","sortingparam":"0.00","question_heading":"","directive":"","deleted":"0","image_check":"0","subject_title":"","concept_title":"","topic_title":""}];
+        const totalTime = 50 * 60;
+        
+        window.onload = function() {
+            if (questions.length > 0) {
+                document.getElementById('total-questions-display').textContent = questions.length;
+                document.getElementById('time-display').textContent = Math.floor(totalTime / 60);
+                let totalMarks = questions.reduce((sum, q) => sum + parseFloat(q.positive_marks || 0), 0);
+                document.getElementById('total-marks').textContent = totalMarks;
+                generateQuestionsGrid();
+            }
+        };
+
+        function stripHTMLTags(html) {
+            const tmp = document.createElement('div');
+            tmp.innerHTML = html;
+            return tmp.innerHTML;
+        }
+
+        function generateOptionsHtml(question, qIndex) {
+            let optionsHtml = '';
+            const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+            
+            for (let i = 1; i <= 10; i++) {
+                const optionKey = `option_${i}`;
+                if (question[optionKey]) {
+                    const isSelected = answers[qIndex] === i;
+                    optionsHtml += `
+                        <div class="option-card ${isSelected ? 'selected' : ''}" 
+                            onclick="selectAnswer(${qIndex}, ${i})"
+                            data-option="${letters[i-1]}">
+                            ${stripHTMLTags(question[optionKey])}
+                        </div>
+                    `;
+                }
+            }
+            return optionsHtml;
+        }
+
+        function startTest() {
+            if (!testStarted && questions.length > 0) {
+                testStarted = true;
+                startTime = new Date();
+                endTime = new Date(startTime.getTime() + totalTime * 1000);
+                document.getElementById('welcome-screen').style.display = 'none';
+                document.getElementById('test-content').style.display = 'block';
+                document.getElementById('bottom-nav').style.display = 'flex';
+                document.getElementById('pre-test-actions').style.display = 'none';
+                document.getElementById('test-actions').style.display = 'flex';
+                showQuestion(0);
+                startTimer();
+            } else if (questions.length === 0) {
+                alert('No questions loaded! Please check the questions data.');
+            }
+        }
+
+        function showQuestion(index) {
+            if (index < 0 || index >= questions.length) return;
+            
+            currentQuestion = index;
+            const question = questions[index];
+            
+            const questionHTML = `
+                <div class="question-header">
+                    <div class="question-number">
+                        <i class="fas fa-pencil-alt"></i>
+                        Question ${index + 1} of ${questions.length}
+                    </div>
+                    <div class="question-status" id="question-status"></div>
+                </div>
+                <div class="question-box">${stripHTMLTags(question.question)}</div>
+                <div class="options-container">
+                    ${generateOptionsHtml(question, index)}
+                </div>
+            `;
+            
+            const container = document.getElementById('question-container');
+            container.style.opacity = '0';
+            
+            setTimeout(() => {
+                container.innerHTML = questionHTML;
+                container.style.opacity = '1';
+                updateQuestionStatus();
+                updateNavigationButtons();
+                updateQuestionsGrid();
+                updateMiniStats();
+            }, 150);
+        }
+
+        function selectAnswer(qIndex, optionIndex) {
+            if (submitted) return;
+            
+            answers[qIndex] = optionIndex;
+            showQuestion(currentQuestion);
+        }
+
+        function updateMiniStats() {
+            const total = questions.length;
+            const attempted = Object.keys(answers).length;
+            const unattempted = total - attempted;
+            
+            document.getElementById('mini-total').textContent = `${currentQuestion + 1}/${total}`;
+            document.getElementById('mini-attempted').textContent = attempted;
+            document.getElementById('mini-skipped').textContent = unattempted;
+        }
+
+        function updateQuestionStatus() {
+            const statusElement = document.getElementById('question-status');
+            if (!statusElement) return;
+            
+            if (answers[currentQuestion] !== undefined) {
+                statusElement.className = 'question-status bg-success text-white';
+                statusElement.innerHTML = '<i class="fas fa-check me-2"></i>Attempted';
+            } else if (markedForReview[currentQuestion]) {
+                statusElement.className = 'question-status bg-warning text-white';
+                statusElement.innerHTML = '<i class="fas fa-bookmark me-2"></i>Marked for Review';
+            } else {
+                statusElement.className = 'question-status bg-danger text-white';
+                statusElement.innerHTML = '<i class="fas fa-times me-2"></i>Not Attempted';
+            }
+        }
+
+        function updateNavigationButtons() {
+            document.getElementById('prev-btn').disabled = currentQuestion === 0;
+            document.getElementById('next-btn').disabled = currentQuestion === questions.length - 1;
+        }
+
+        function generateQuestionsGrid() {
+            const grid = document.getElementById('questions-grid');
+            if (!grid) return;
+            
+            grid.innerHTML = questions.map((_, index) => `
+                <button class="grid-btn ${getQuestionButtonClass(index)}" 
+                        onclick="jumpToQuestion(${index})"
+                        type="button">
+                    ${index + 1}
+                </button>
+            `).join('');
+        }
+
+        function getQuestionButtonClass(index) {
+            if (index === currentQuestion) return 'active';
+            if (answers[index] !== undefined) return 'answered';
+            if (markedForReview[index]) return 'marked';
+            return '';
+        }
+
+        function updateQuestionsGrid() {
+            const grid = document.getElementById('questions-grid');
+            if (!grid) return;
+            
+            const buttons = grid.querySelectorAll('.grid-btn');
+            buttons.forEach((btn, index) => {
+                btn.className = `grid-btn ${getQuestionButtonClass(index)}`;
+            });
+        }
+
+        function jumpToQuestion(index) {
+            showQuestion(index);
+            bootstrap.Modal.getInstance(document.getElementById('questionsModal')).hide();
+        }
+
+        function markForReview() {
+            if (submitted) return;
+            
+            markedForReview[currentQuestion] = !markedForReview[currentQuestion];
+            updateQuestionStatus();
+            updateQuestionsGrid();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                showQuestion(currentQuestion + 1);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                showQuestion(currentQuestion - 1);
+            }
+        }
+
+        function startTimer() {
+            const timerElement = document.getElementById('timer');
+            const timerInterval = setInterval(() => {
+                if (!testStarted || submitted) {
+                    clearInterval(timerInterval);
+                    return;
+                }
+
+                const now = new Date();
+                const timeLeft = Math.max(0, Math.floor((endTime - now) / 1000));
+                
+                if (timeLeft === 0) {
+                    clearInterval(timerInterval);
+                    submitTest();
+                    return;
+                }
+
+                const hours = Math.floor(timeLeft / 3600);
+                const minutes = Math.floor((timeLeft % 3600) / 60);
+                const seconds = timeLeft % 60;
+                
+                timerElement.innerHTML = `
+                    <i class="far fa-clock me-2"></i>
+                    ${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}
+                `;
+            }, 1000);
+        }
+
+        function showQuestionsGrid() {
+            generateQuestionsGrid();
+            new bootstrap.Modal(document.getElementById('questionsModal')).show();
+        }
+
+        function confirmSubmit() {
+            new bootstrap.Modal(document.getElementById('submitConfirmModal')).show();
+        }
+
+        function finalSubmit() {
+            bootstrap.Modal.getInstance(document.getElementById('submitConfirmModal')).hide();
+            submitTest();
+        }
+
+        async function submitTest() {
+            if (submitted) return;
+
+            submitted = true;
+            testStarted = false;
+            
+            let correct = 0;
+            let incorrect = 0;
+            let totalMarks = 0;
+            let allSolutions = [];
+            
+            questions.forEach((q, index) => {
+                const correctAnswer = parseInt(q.answer);
+                const userAnswer = answers[index];
+                let status = 'not-attempted';
+                
+                if (userAnswer !== undefined) {
+                    if (userAnswer === correctAnswer) {
+                        correct++;
+                        totalMarks += parseFloat(q.positive_marks || 0);
+                        status = 'correct';
+                    } else {
+                        incorrect++;
+                        totalMarks -= parseFloat(q.negative_marks || 0);
+                        status = 'incorrect';
+                    }
+                }
+                
+                const letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
+                let optionsHtml = '';
+                
+                for (let i = 1; i <= 10; i++) {
+                    const optionKey = `option_${i}`;
+                    if (q[optionKey]) {
+                        let optionClass = 'solution-option';
+                        
+                        if (i === correctAnswer) {
+                            optionClass += ' correct';
+                        }
+                        
+                        if (userAnswer === i && i !== correctAnswer) {
+                            optionClass += ' user-incorrect';
+                        }
+                        
+                        optionsHtml += `
+                            <div class="${optionClass}" data-option="${letters[i-1]}">
+                                ${stripHTMLTags(q[optionKey])}
+                            </div>
+                        `;
+                    }
+                }
+                
+                let statusBadge = '';
+                
+                if (status === 'correct') {
+                    statusBadge = '<div class="solution-status correct-answer"><i class="fas fa-check-circle"></i> Correct Answer</div>';
+                } else if (status === 'incorrect') {
+                    statusBadge = '<div class="solution-status wrong-answer"><i class="fas fa-times-circle"></i> Wrong Answer</div>';
+                } else {
+                    statusBadge = '<div class="solution-status not-attempted"><i class="fas fa-minus-circle"></i> Not Attempted</div>';
+                }
+
+                // Add solution explanation if available
+                let solutionExplanation = '';
+                if (q.solution_heading || q.solution_text) {
+                    solutionExplanation = `
+                        <div class="solution-explanation">
+                            <h6><i class="fas fa-lightbulb"></i> ${q.solution_heading || 'Solution Explanation'}</h6>
+                            <div class="solution-explanation-content">
+                                ${q.solution_text ? stripHTMLTags(q.solution_text) : 'No detailed solution available.'}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                allSolutions.push({
+                    questionNum: index + 1,
+                    question: stripHTMLTags(q.question),
+                    optionsHtml: optionsHtml,
+                    statusBadge: statusBadge,
+                    status: status,
+                    solutionExplanation: solutionExplanation
+                });
+            });
+            
+            // Persist this attempt before showing the result. Correct answers are taken from this paper's embedded key.
+            if (window.__aimSaveAttempt) {
+                const letters = ['A','B','C','D','E','F','G','H','I','J'];
+                const attemptDetails = questions.map((q, index) => {
+                    const ca = parseInt(q.answer);
+                    const ua = answers[index];
+                    const opts = {};
+                    for (let oi=1; oi<=10; oi++) if (q['option_'+oi] != null && q['option_'+oi] !== '') opts[letters[oi-1]] = stripHTMLTags(q['option_'+oi]);
+                    const st = ua === undefined ? 'unattempted' : (ua === ca ? 'correct' : 'wrong');
+                    return {question_number:index+1, question:stripHTMLTags(q.question), options:opts,
+                        selected_option:ua === undefined ? null : letters[ua-1],
+                        correct_option:Number.isFinite(ca) ? letters[ca-1] : null,
+                        status:st, explanation:q.solution_text ? stripHTMLTags(q.solution_text) : ''};
+                });
+                try { await window.__aimSaveAttempt({
+                    test_id:"test-32-biology-biomolecules-17-08-26", test_name:document.title || "Test-32_Biology_Biomolecules_17-08-26",
+                    total_questions:questions.length, attempted:correct+incorrect, correct, incorrect,
+                    unattempted:questions.length-(correct+incorrect), score:Number(totalMarks.toFixed(2)),
+                    accuracy:(correct+incorrect)?Math.round(correct/(correct+incorrect)*10000)/100:0,
+                    question_details:attemptDetails, created_at:new Date().toISOString()
+                }); } catch(saveError) { console.warn('Attempt saved/rendering continued despite save error:',saveError); }
+            }
+
+            const solutionsHtml = allSolutions.map(sol => `
+                <div class="solution-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <div style="font-weight: 600; color: #2c3e50; font-size: 1.1rem;">
+                            <i class="fas fa-question-circle" style="color: var(--primary);"></i>
+                            Question ${sol.questionNum}
+                        </div>
+                        ${sol.statusBadge}
+                    </div>
+                    <div class="solution-question">${sol.question}</div>
+                    <div style="margin-top: 1rem;">
+                        ${sol.optionsHtml}
+                    </div>
+                    ${sol.solutionExplanation}
+                </div>
+            `).join('');
+            
+            document.getElementById('test-content').innerHTML = `
+                <div style="max-width: 900px; margin: 2rem auto; padding: 3rem; background: white; border-radius: 24px; box-shadow: 0 20px 40px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 3rem;">
+                        <i class="fas fa-award fa-3x" style="color: var(--primary); margin-bottom: 1rem;"></i>
+                        <div style="font-size: 4.5rem; font-weight: 700; background: linear-gradient(45deg, var(--primary), var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 1rem;">
+                            ${totalMarks.toFixed(2)}
+                        </div>
+                        <div style="font-size: 1.5rem; color: #666;">Your Final Score</div>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 2.5rem 0;">
+                        <div style="background: linear-gradient(145deg, #ffffff, #f8faff); border-radius: 20px; padding: 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(33, 150, 243, 0.1);">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #4caf50; margin-bottom: 0.8rem;">${correct}</div>
+                            <div style="color: #64748b; font-weight: 500; font-size: 1.1rem;">Correct</div>
+                        </div>
+                        <div style="background: linear-gradient(145deg, #ffffff, #f8faff); border-radius: 20px; padding: 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(33, 150, 243, 0.1);">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #f44336; margin-bottom: 0.8rem;">${incorrect}</div>
+                            <div style="color: #64748b; font-weight: 500; font-size: 1.1rem;">Incorrect</div>
+                        </div>
+                        <div style="background: linear-gradient(145deg, #ffffff, #f8faff); border-radius: 20px; padding: 1.8rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid rgba(33, 150, 243, 0.1);">
+                            <div style="font-size: 2.5rem; font-weight: 700; color: #ffc107; margin-bottom: 0.8rem;">${questions.length - (correct + incorrect)}</div>
+                            <div style="color: #64748b; font-weight: 500; font-size: 1.1rem;">Skipped</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 3rem;">
+                        <h5 style="margin-bottom: 1.5rem; color: #2c3e50; font-weight: 600; font-size: 1.5rem;">
+                            <i class="fas fa-book-open" style="color: var(--primary);"></i>
+                            Complete Solutions
+                        </h5>
+                        ${solutionsHtml}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('bottom-nav').style.display = 'none';
+            document.getElementById('test-actions').style.display = 'none';
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (!testStarted || submitted) return;
+            
+            switch(e.key) {
+                case 'ArrowLeft':
+                    prevQuestion();
+                    break;
+                case 'ArrowRight':
+                    nextQuestion();
+                    break;
+            }
+        });
+    </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(()=> {
+ const css='max-width:1100px;margin:12px auto;padding:14px;background:#101f42;color:#f4f7ff;border:1px solid #39588d;border-radius:12px;font:14px Arial,sans-serif;';
+ const panel=document.createElement('section');panel.id='aimHistoryAuth';panel.setAttribute('style',css);
+ panel.innerHTML='<b>Student Result Sync (optional)</b><p style="margin:7px 0;color:#b9c8e5">Sign in with your CBT account to save attempts to Supabase and see them on Student Result History. Without sign-in, attempts are saved in this browser as guest history.</p><div style="display:flex;gap:8px;flex-wrap:wrap"><input id="aimEmail" type="email" placeholder="Email" style="padding:9px;min-width:180px;flex:1"><input id="aimPassword" type="password" placeholder="Password" style="padding:9px;min-width:150px;flex:1"><button id="aimSignIn" type="button">Sign in</button><button id="aimSignUp" type="button">Create account</button><button id="aimSignOut" type="button">Sign out</button><a href="student-dashboard.html" style="align-self:center;color:#53e0e5">Student History</a></div><p id="aimAuthStatus" style="margin:7px 0 0;color:#b9c8e5"></p>';
+ document.body.insertBefore(panel,document.body.firstChild);
+ const status=t=>{document.getElementById('aimAuthStatus').textContent=t};
+ let sb=null,user=null;try{if(window.supabase)sb=window.supabase.createClient('https://hwndciclhjwicallmtfr.supabase.co','sb_publishable_PAfy8xgj34tNS-SNNmH-eQ_VMEJVAYw')}catch(e){}
+ async function refresh(){if(!sb){status('Supabase library unavailable. Local-only history will work.');return}try{const r=await sb.auth.getUser();user=r.data?.user||null;status(user?'Signed in: '+(user.email||'student'):'Not signed in. Attempts will be saved locally.')}catch(e){status('Not signed in. Attempts will be saved locally.')}}
+ document.getElementById('aimSignIn').onclick=async()=>{if(!sb)return status('Supabase unavailable.');const r=await sb.auth.signInWithPassword({email:document.getElementById('aimEmail').value.trim(),password:document.getElementById('aimPassword').value});status(r.error?r.error.message:'Signed in.');await refresh()};
+ document.getElementById('aimSignUp').onclick=async()=>{if(!sb)return status('Supabase unavailable.');const r=await sb.auth.signUp({email:document.getElementById('aimEmail').value.trim(),password:document.getElementById('aimPassword').value});status(r.error?r.error.message:'Sign-up request sent. Confirm email if requested.');await refresh()};
+ document.getElementById('aimSignOut').onclick=async()=>{if(sb)await sb.auth.signOut();user=null;status('Signed out. Local history still works.')};
+ if(sb){sb.auth.onAuthStateChange(()=>{setTimeout(refresh,0)});refresh()}
+ window.__aimSaveAttempt=async function(record){
+   const key='aim2aiims_attempts_'+(user?.id||'guest');let rows=[];
+   try{rows=JSON.parse(localStorage.getItem(key)||'[]');if(!Array.isArray(rows))rows=[]}catch(e){rows=[]}
+   let remoteMax=0;
+   if(sb&&user){try{const r=await sb.from('test_attempts').select('attempt_number').eq('user_id',user.id).eq('test_id',record.test_id).order('attempt_number',{ascending:false}).limit(1);if(!r.error)remoteMax=Number(r.data?.[0]?.attempt_number)||0}catch(e){}}
+   const localMax=rows.filter(r=>r.test_id===record.test_id).reduce((m,r)=>Math.max(m,Number(r.attempt_number)||0),0);
+   record.attempt_number=Math.max(localMax,remoteMax)+1;record.student_id=user?.id||null;record.storage='local';
+   rows.push(record);
+   try{localStorage.setItem(key,JSON.stringify(rows))}catch(e){status('Local save failed: '+e.message)}
+   if(sb&&user){
+     const {student_id:ignored,storage:ignoredStorage,...cloudRecord}=record;
+     const result=await sb.from('test_attempts').insert({...cloudRecord,user_id:user.id});
+     if(!result.error){record.storage='local+cloud';rows[rows.length-1]=record;try{localStorage.setItem(key,JSON.stringify(rows))}catch(e){}status('Attempt #'+record.attempt_number+' saved locally and to Supabase.')}
+     else status('Attempt saved locally. Cloud save failed: '+result.error.message);
+   } else status('Attempt #'+record.attempt_number+' saved in this browser. Sign in to sync to the cloud.');
+   return record;
+ };
+})();
+</script>
+
+</body>
+</html>

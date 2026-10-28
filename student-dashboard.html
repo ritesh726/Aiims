@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07152f">
+<title>Student Result History | Aim2AIIMS Rishikesh</title>
+<style>
+:root{--bg:#07152f;--panel:#101f42;--line:#294575;--cyan:#53e0e5;--gold:#ffc857;--text:#f4f7ff;--muted:#aab8d6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#17366b 0,#07152f 58%);color:var(--text);font-family:Arial,Helvetica,sans-serif}
+.wrap{max-width:1150px;margin:auto;padding:22px 16px 45px}.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+a{color:var(--cyan)}.brand{font-weight:900;color:var(--cyan)}.panel{background:linear-gradient(145deg,#122951,#0b1d3b);border:1px solid var(--line);border-radius:16px;padding:18px;margin:18px 0}
+h1{font-size:clamp(25px,5vw,38px);margin:22px 0 8px}p{line-height:1.6}.muted{color:var(--muted);font-size:13px}
+input,button{font:inherit;border-radius:9px;padding:11px 12px;border:1px solid #39588d}input{display:block;width:100%;margin:8px 0;background:#fff;color:#172033}button{cursor:pointer;background:#53e0e5;color:#06203b;font-weight:800;margin:5px 5px 5px 0}button.alt{background:#1c315d;color:#e9f2ff}.auth{max-width:430px;margin:28px auto;background:#fff;color:#172033;border-radius:16px;padding:22px}.auth h2{margin-top:0}.auth p{color:#64748b}.authMsg{color:#b42318;font-size:13px;min-height:18px}
+.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:760px;background:#fff;color:#172033;border-radius:10px;overflow:hidden}th,td{text-align:left;padding:11px 9px;border-bottom:1px solid #e2e8f0;font-size:13px}th{background:#eaf0f9}tr:last-child td{border-bottom:0}.positive{color:#15803d;font-weight:800}.negative{color:#b91c1c;font-weight:800}.neutral{color:#64748b}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}.stat{background:#07152f;border:1px solid var(--line);border-radius:12px;padding:14px}.stat b{display:block;font-size:25px;color:var(--cyan);margin-bottom:5px}.hidden{display:none!important}
+</style>
+</head>
+<body>
+<main class="wrap">
+<header class="top"><div class="brand">✦ AIM2AIIMSRISHIKESH</div><a href="index.html">← Back to Home</a></header>
+<h1>👤 Student Result History</h1>
+<p class="muted">Your attempts, marks, accuracy and improvement comparison. Sign in with the same account used for the CBT tests.</p>
+<section id="authPanel" class="auth">
+<h2>Student Account</h2><p>Create an account or sign in to sync your results across devices.</p>
+<input id="email" type="email" placeholder="Email address" autocomplete="email">
+<input id="password" type="password" placeholder="Password (minimum 6 characters)" autocomplete="current-password">
+<button id="login">Sign In</button><button id="signup" class="alt">Create Account</button>
+<div id="authMsg" class="authMsg"></div>
+</section>
+<section id="historyPanel" class="hidden">
+<div class="panel">
+<div class="top"><div><b id="studentEmail"></b><p class="muted">Local browser history and cloud history are combined when available.</p></div><button id="logout" class="alt">Sign Out</button></div>
+<div id="status" class="muted"></div>
+</div>
+<div class="panel"><h2>Overview</h2><div class="cards" id="stats"></div></div>
+<div class="panel"><h2>All Attempts &amp; Improvement</h2><div class="tablewrap"><table><thead><tr><th>Test</th><th>Attempt</th><th>Date</th><th>Marks</th><th>Change vs Previous</th><th>Correct</th><th>Wrong</th><th>Unattempted</th><th>Accuracy</th><th>Review</th></tr></thead><tbody id="rows"></tbody></table></div><p id="empty" class="muted hidden">No attempts found yet. Complete a CBT test first.</p></div>
+<div class="panel hidden" id="reviewPanel"><div class="top"><h2 id="reviewTitle">Attempt Review</h2><button class="alt" id="closeReview">Close Review</button></div><p id="reviewSummary" class="muted"></p><div id="reviewFilters"><button data-filter="all">All Questions</button><button class="alt" data-filter="wrong">Wrong</button><button class="alt" data-filter="unattempted">Unattempted</button></div><div id="reviewQuestions"></div></div>
+</section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(()=>{
+ const sb=window.supabase.createClient('https://hwndciclhjwicallmtfr.supabase.co','sb_publishable_PAfy8xgj34tNS-SNNmH-eQ_VMEJVAYw');
+ const $=id=>document.getElementById(id);let currentUser=null;
+ function say(t){$('authMsg').textContent=t}
+ function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+ async function session(){const {data,error}=await sb.auth.getSession();if(error)say(error.message);currentUser=data.session?.user||null;if(currentUser){$('authPanel').classList.add('hidden');$('historyPanel').classList.remove('hidden');$('studentEmail').textContent=currentUser.email||'Signed in';await loadHistory()}else{$('authPanel').classList.remove('hidden');$('historyPanel').classList.add('hidden')}}
+ $('login').onclick=async()=>{say('Signing in…');const {error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});if(error)say(error.message);else await session()};
+ $('signup').onclick=async()=>{say('Creating account…');const {data,error}=await sb.auth.signUp({email:$('email').value.trim(),password:$('password').value});if(error)say(error.message);else if(data.session)await session();else say('Account created. Check your email to confirm, then sign in.')};
+ $('logout').onclick=async()=>{await sb.auth.signOut();currentUser=null;await session()};
+ async function loadHistory(){
+  $('status').textContent='Loading saved attempts…';
+  let local=[];try{local=JSON.parse(localStorage.getItem('aim2aiims_attempts_'+currentUser.id)||'[]');if(!Array.isArray(local))local=[]}catch(_){}
+  let cloud=[],cloudErr='';
+  try{const {data,error}=await sb.from('test_attempts').select('test_id,test_name,attempt_number,created_at,total_questions,attempted,correct,incorrect,unattempted,score,accuracy,question_details').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(500);if(error)throw error;cloud=data||[]}catch(e){cloudErr=e.message||String(e)}
+  const map=new Map();
+  cloud.forEach(r=>map.set(String(r.test_id)+'#'+String(r.attempt_number),{...r,source:'cloud'}));
+  local.forEach(r=>{const k=String(r.test_id)+'#'+String(r.attempt_number);if(!map.has(k))map.set(k,{...r,source:'local'})});
+  const all=[...map.values()].sort((a,b)=>new Date(a.created_at||0)-new Date(b.created_at||0));
+  const previousByTest={};let scored=0,best=null;
+  all.forEach(r=>{r.previous=previousByTest[r.test_id]||null;r.delta=(r.score!=null&&r.previous?.score!=null)?Number(r.score)-Number(r.previous.score):null;if(r.score!=null){scored++;if(best===null||Number(r.score)>best)best=Number(r.score)}previousByTest[r.test_id]=r});
+  $('stats').innerHTML='<div class="stat"><b>'+all.length+'</b>Total attempts</div><div class="stat"><b>'+scored+'</b>Scored attempts</div><div class="stat"><b>'+(best===null?'—':best)+'</b>Best marks</div><div class="stat"><b>'+new Set(all.map(r=>r.test_id)).size+'</b>Tests attempted</div>';
+  const tbody=$('rows');tbody.innerHTML='';
+  const displayAll=all.slice().reverse();window.__attemptHistory=displayAll;
+  displayAll.forEach((r,ri)=>{const delta=r.delta;const change=delta===null?'—':(delta>0?'+':'')+delta;const cl=delta===null?'neutral':delta>0?'positive':delta<0?'negative':'neutral';const tr=document.createElement('tr');tr.innerHTML='<td>'+esc(r.test_name||r.test_id)+'</td><td>#'+esc(r.attempt_number)+'</td><td>'+esc(r.created_at?new Date(r.created_at).toLocaleString():'—')+'</td><td>'+(r.score==null?'Not scored':esc(r.score))+'</td><td class="'+cl+'">'+esc(change)+'</td><td>'+(r.correct==null?'—':esc(r.correct))+'</td><td>'+(r.incorrect==null?'—':esc(r.incorrect))+'</td><td>'+(r.unattempted==null?'—':esc(r.unattempted))+'</td><td>'+(r.accuracy==null?'—':Number(r.accuracy).toFixed(1)+'%')+'</td><td><button class="alt" data-review="'+ri+'">View</button></td>';tbody.appendChild(tr)});
+  tbody.querySelectorAll('[data-review]').forEach(b=>b.addEventListener('click',()=>window.viewAttempt(Number(b.dataset.review),'all')));
+  $('empty').classList.toggle('hidden',all.length!==0);
+  $('status').textContent=cloudErr?'History loaded from local storage where possible. Supabase history unavailable: '+cloudErr:'History loaded. LocalStorage + Supabase records are shown where available.';
+ }
+
+ function getQuestionState(d){
+  const status=String(d.status||d.result||'').toLowerCase();
+  const selected=d.selected_option??d.selected_answer??d.selected??null;
+  const correct=d.correct_option??d.correct_answer??d.correct??null;
+  const unattempted=!selected||status.includes('unattempted')||status.includes('not-attempted');
+  const noKey=!unattempted&&correct==null&&(status==='answered'||status==='');
+  const wrong=!unattempted&&!noKey&&(status==='wrong'||status==='incorrect'||(correct!=null&&String(selected)!==String(correct)));
+  return {selected,correct,unattempted,wrong,noKey,status};
+ }
+ function optionLabel(v,opts){
+  if(v==null||v==='')return 'Not answered';
+  if(typeof v==='number'||/^\d+$/.test(String(v))){const n=Number(v);if(n>=1&&n<=26)return String.fromCharCode(64+n)}
+  return String(v);
+ }
+ window.viewAttempt=function(i,filter){
+  const r=(window.__attemptHistory||[])[i];if(!r)return;
+  const panel=$('reviewPanel');panel.classList.remove('hidden');
+  $('reviewTitle').textContent=(r.test_name||r.test_id||'Test')+' · Attempt #'+(r.attempt_number??'?');
+  $('reviewSummary').textContent='Date: '+(r.created_at?new Date(r.created_at).toLocaleString():'—')+' | Marks: '+(r.score??'Not scored')+' | Correct: '+(r.correct??'—')+' | Wrong: '+(r.incorrect??'—')+' | Unattempted: '+(r.unattempted??'—');
+  const details=Array.isArray(r.question_details)?r.question_details:[];
+  const chosen=filter||'all';
+  const list=details.filter(d=>{const st=getQuestionState(d);return chosen==='all'||(chosen==='wrong'&&st.wrong)||(chosen==='unattempted'&&st.unattempted)});
+  $('reviewQuestions').innerHTML=details.length?list.map((d,idx)=>{
+    const st=getQuestionState(d),opts=d.options||{};
+    const qno=d.question_number??d.questionNum??idx+1;
+    const statusText=st.unattempted?'Unattempted':st.noKey?'Answered · answer key unavailable':st.wrong?'Wrong':'Correct / answered';
+    const optionEntries=Array.isArray(opts)?opts.map((v,i)=>[String.fromCharCode(65+i),v]):Object.keys(opts).filter(k=>opts[k]!=null&&opts[k]!=='').map(k=>[k,opts[k]]);
+    const optionsHtml=optionEntries.length?'<ol>'+optionEntries.map(([k,value])=>{
+      const letter=/^option_(\d+)$/.test(k)?String.fromCharCode(64+Number(k.match(/\d+/)[0])):k;const isCorrect=String(st.correct)===letter||String(st.correct)===k||String(st.correct)===String(Number(letter.charCodeAt(0)-64));
+      const isSelected=String(st.selected)===letter||String(st.selected)===k||String(st.selected)===String(Number(letter.charCodeAt(0)-64));
+      return '<li style="margin:6px 0;'+(isCorrect?'color:#15803d;font-weight:800;':isSelected?'color:#b91c1c;font-weight:800;':'')+'">'+esc(letter)+'. '+esc(value)+(isSelected?' — Your answer':'')+(isCorrect?' — Correct answer':'')+'</li>';
+    }).join('')+'</ol>':'';
+    return '<article style="background:#fff;color:#172033;border-radius:10px;padding:14px;margin:12px 0"><b>Q'+esc(qno)+' · '+esc(statusText)+'</b><p>'+esc(d.question||d.question_text||d.stem||'Question text unavailable')+'</p>'+optionsHtml+'<p><b>Your answer:</b> '+esc(optionLabel(st.selected,opts))+' · <b>Correct answer:</b> '+esc(optionLabel(st.correct,opts))+'</p>'+(d.explanation?'<p><b>Explanation:</b> '+esc(d.explanation)+'</p>':'')+'</article>';
+  }).join(''):'<p class="muted">'+(details.length?'No questions match this filter.':'Question-level details were not saved for this attempt.')+'</p>';
+  panel.scrollIntoView({behavior:'smooth',block:'start'});
+ };
+ $('closeReview').onclick=()=>$('reviewPanel').classList.add('hidden');
+ document.querySelectorAll('#reviewFilters [data-filter]').forEach(b=>b.onclick=()=>{document.querySelectorAll('#reviewFilters button').forEach(x=>x.classList.toggle('alt',x!==b));const current=(window.__attemptHistory||[]).findIndex(r=>$('reviewTitle').textContent===(r.test_name||r.test_id||'Test')+' · Attempt #'+(r.attempt_number??'?'));if(current>=0)window.viewAttempt(current,b.dataset.filter)});
+
+ sb.auth.onAuthStateChange(()=>{setTimeout(session,0)});session();
+})();
+</script>
+</body>
+</html>

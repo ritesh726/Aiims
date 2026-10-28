@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NEET CBT Question Bank</title>
+<style>
+body{font-family:Arial,sans-serif;margin:0;background:#f4f6f8;color:#17202a}
+header{background:#111827;color:#fff;padding:16px}
+h1{margin:0;font-size:22px}.wrap{max-width:1000px;margin:auto;padding:14px}
+.card{background:#fff;border-radius:12px;padding:16px;margin:12px 0;box-shadow:0 2px 8px #0001}
+button,select,input{font-size:16px;padding:10px;border-radius:8px;border:1px solid #ccd2d8}
+button{background:#111827;color:white;cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.subject label{margin-right:14px}.muted{color:#667085}
+#quiz{display:none}.opt{display:block;width:100%;text-align:left;background:#fff;color:#17202a;margin:8px 0}.opt.sel{background:#dbeafe;border-color:#2563eb}
+.nav{display:flex;justify-content:space-between;gap:8px}.palette{display:flex;flex-wrap:wrap;gap:5px}.p{width:38px;padding:8px 0}.p.done{background:#16a34a}.p.cur{outline:3px solid #f59e0b}
+#qtext{font-size:19px;line-height:1.55;white-space:pre-wrap}.src{font-size:12px;color:#667085;margin-top:12px}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>NEET CBT Question Bank</h1></div></header>
+<div class="wrap">
+<div id="setup" class="card">
+<h2>Start Test</h2>
+<p class="muted">Actual questions extracted from the archived source PDFs. Current bank: <b id="total"></b> questions.</p>
+<div class="subject row">
+<label><input type="checkbox" value="Physics" checked> Physics</label>
+<label><input type="checkbox" value="Chemistry" checked> Chemistry</label>
+<label><input type="checkbox" value="Biology" checked> Biology</label>
+</div>
+<div class="row" style="margin-top:12px">
+<label>Questions <select id="n"><option>45</option><option>90</option><option>180</option><option>200</option><option>360</option></select></label>
+<label>Time <select id="mins"><option>60</option><option>120</option><option>180</option><option>200</option></select> min</label>
+<button onclick="start()">Start CBT</button>
+</div>
+<p class="muted">Note: this build is a practice/question-bank CBT. The source answer keys are not uniformly mapped to every extracted question, so scoring is not falsely claimed.</p>
+</div>
+
+<div id="quiz">
+<div class="card row"><b id="counter"></b><span id="timer" style="margin-left:auto"></span></div>
+<div class="card"><div class="muted" id="subject"></div><div id="qtext"></div><div id="opts"></div><div class="src" id="src"></div></div>
+<div class="card"><div class="palette" id="palette"></div></div>
+<div class="card nav"><button onclick="prev()">← Previous</button><button onclick="next()">Next →</button><button onclick="finish()">Submit</button></div>
+</div>
+</div>
+<script>
+let bank=[], test=[], ans={}, cur=0, end=0, timerInt;
+const $=id=>document.getElementById(id);
+fetch("questions.json").then(r=>r.json()).then(d=>{bank=d;$("total").textContent=d.length.toLocaleString()});
+function shuffle(a){for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function start(){
+ const subs=[...document.querySelectorAll('.subject input:checked')].map(x=>x.value);
+ if(!subs.length)return alert("Select at least one subject.");
+ let pool=bank.filter(x=>subs.includes(x.subject));
+ let n=Math.min(+$("n").value,pool.length);
+ test=shuffle(pool.slice()).slice(0,n); ans={};cur=0;end=Date.now()+ +$("mins").value*60000;
+ $("setup").style.display="none";$("quiz").style.display="block";render();
+ clearInterval(timerInt);timerInt=setInterval(tick,1000);tick();
+}
+function tick(){let s=Math.max(0,Math.floor((end-Date.now())/1000));$("timer").textContent=Math.floor(s/60)+":"+String(s%60).padStart(2,"0");if(!s){clearInterval(timerInt);finish()}}
+function render(){
+ let x=test[cur];$("counter").textContent="Question "+(cur+1)+" / "+test.length;$("subject").textContent=x.subject;
+ $("qtext").textContent=x.q;$("src").textContent="Source: "+x.source;
+ $("opts").innerHTML="";
+ x.options.forEach((o,i)=>{let b=document.createElement("button");b.className="opt"+(ans[cur]===i?" sel":"");b.textContent="("+ (i+1) +") "+o;b.onclick=()=>{ans[cur]=i;render()};$("opts").appendChild(b)});
+ let p="";for(let i=0;i<test.length;i++)p+=`<button class="p ${ans[i]!==undefined?"done":""} ${i===cur?"cur":""}" onclick="cur=${i};render()">${i+1}</button>`;$("palette").innerHTML=p;
+}
+function prev(){if(cur>0){cur--;render()}} function next(){if(cur<test.length-1){cur++;render()}}
+function finish(){clearInterval(timerInt);let done=Object.keys(ans).length;alert("CBT submitted. Attempted: "+done+" / "+test.length+"\\nThis build does not assign a score because answer-key mapping is incomplete.");}
+</script>
+</body>
+</html>
